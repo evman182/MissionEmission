@@ -139,19 +139,24 @@ const checkForMatches = function(allNodes) {
 					}
 					let matchedFood = responsesJson[matchedArr[i]];
 					console.log('matchedfood: ', matchedFood);
-					allNodes[n].parentNode.innerHTML = tempHead
-					+"<span class='food-match'>" + tempText.slice(indexStart, indexEnd)
-					+"<div class='food-match-info'>"
-					+"<div class='food-match-title'>" + matchedArr[i].toLowerCase() + " facts!</div>"
-					+"<div>Grams CO2 per Cal: " + matchedFood['GramsCO2ePerCal'] + "</div>"
-					+"<div>Grams CO2 per Serving: " + matchedFood['GramsCO2ePerServing'] + "</div>"
-					+"</div></span>";
+					try{
+						allNodes[n].parentNode.innerHTML = tempHead
+						+"<span class='food-match'>" + tempText.slice(indexStart, indexEnd)
+						+"<div class='food-match-info'>"
+						+"<div class='food-match-title'>" + matchedArr[i].toLowerCase() + " facts!</div>"
+						+"<div>Grams CO2 per Cal: " + matchedFood['GramsCO2ePerCal'] + "</div>"
+						+"<div>Grams CO2 per Serving: " + matchedFood['GramsCO2ePerServing'] + "</div>"
+						+"</div></span>" + tempText.slice(indexEnd);
+					}
+					catch(error){
+						break;
+					}
 
 				}
 			}
 		}
 	};
-	setTimeout(function(){return fillerFunc()}, 5000);
+	setTimeout(function(){return fillerFunc()}, 4000);
 
 	
 

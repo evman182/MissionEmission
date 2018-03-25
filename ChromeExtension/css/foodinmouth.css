@@ -14,9 +14,10 @@
     position: absolute;
     bottom: 3em;
     left: 0px;
-    box-shadow: 0 0 20px 3px grey;
     padding: 5px 10px;
-    background-color: white;
+    background-color: #1ea295;
+    color:  white;
+    border-radius: 5px;
 }
 
 .food-match:hover .food-match-info .food-match-title {
