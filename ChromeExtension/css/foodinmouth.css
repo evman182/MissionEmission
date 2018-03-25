@@ -1,0 +1,21 @@
+
+.food-match {
+	font-weight: bold !important;
+	font-style: italic !important;
+	background-color: yellow !important;
+}
+
+.food-match .food-match-info {
+	display: none;
+}
+.food-match:hover .food-match-info {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	bottom: 3em;
+	left: 20px;
+    box-shadow: 0 0 20px 3px grey;
+    padding: 3px 5px;
+    background-color: white;
+}
+
