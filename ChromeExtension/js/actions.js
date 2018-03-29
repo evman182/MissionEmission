@@ -93,20 +93,25 @@ const createFloatbox = function(tempHead, tempText, matchedOne, matchedTwo ) {
 
 const checkForMatches = function(allNodes) {
 	
-	let dataArr = ["ALMOND", "APPLE", "APRICOT", "ARTICHOKE", "ASPARAGUS", "AVOCADO", "BANANA", "BARLEY", "BEEF", "BELL PEPPER", "BLACK AND WHITE PEPPER", "BLACKSTRAP MOLASSES", "BLUEBERRIES", "BROCCOLI", "BROILER CHICKEN", "BRUSSEL SPROUT", "BUTTER", "CABBAGE", "CANTALOUPE", "CARROT", "CAULIFLOWER", "CELERY", "CHEESE", "CHOCOLATE LIQUOR", "COCOA BEAN", "COCOA BUTTER", "COCONUT OIL", "CORN", "CORN OIL", "CRANBERRIES", "CUCUMBER", "DRY BEANS", "EGG", "EGGPLANT", "FIG", "FISH", "FLAXSEED", "GARLIC (California)", "GRAPEFRUIT", "HAWAIIAN COFFEE", "HAZELNUT", "HONEY", "HONEYDEW", "HOPS", "KIWI", "LAMB", "LARD", "LETTUCE", "LIMA BEAN", "MACADAMIA NUT", "MILK", "NECTARINE", "OAT", "OLIVE", "OLIVE OIL", "ONION", "ORANGE", "PALM OIL", "PAPAYA", "PEACH", "PEANUT", "PEAR", "PECANS", "PEPPERMINT", "PIG", "PINEAPPLE", "PISTACHIO", "PLUM", "PORK", "POTATO", "RAISIN GRAPE", "RASPBERRIES", "RAW SUGAR", "RETAIL COFFEE", "RICE", "SNAP PEA", "SOYBEAN", "SOYBEAN OIL", "SPEARMINT", "SPINACH", "STRAWBERRIES", "SUNFLOWER OIL", "SWEET CHERRIES", "SWEET CORN", "SWEET POTATO", "TABLE GRAPE", "TOBACCO", "TOMATO", "TURKEY", "WALNUT", "WATERMELON", "WHEAT", "WHEAT FLOUR", "WHOLESALE COFFEE"];
-
+	//let dataArr = ["ALMOND", "APPLE", "APRICOT", "ARTICHOKE", "ASPARAGUS", "AVOCADO", "BANANA", "BARLEY", "BEEF", "BELL PEPPER", "BLACK AND WHITE PEPPER", "BLACKSTRAP MOLASSES", "BLUEBERRIES", "BROCCOLI", "BROILER CHICKEN", "BRUSSEL SPROUT", "BUTTER", "CABBAGE", "CANTALOUPE", "CARROT", "CAULIFLOWER", "CELERY", "CHEESE", "CHOCOLATE LIQUOR", "COCOA BEAN", "COCOA BUTTER", "COCONUT OIL", "CORN", "CORN OIL", "CRANBERRIES", "CUCUMBER", "DRY BEANS", "EGG", "EGGPLANT", "FIG", "FISH", "FLAXSEED", "GARLIC (California)", "GRAPEFRUIT", "HAWAIIAN COFFEE", "HAZELNUT", "HONEY", "HONEYDEW", "HOPS", "KIWI", "LAMB", "LARD", "LETTUCE", "LIMA BEAN", "MACADAMIA NUT", "MILK", "NECTARINE", "OAT", "OLIVE", "OLIVE OIL", "ONION", "ORANGE", "PALM OIL", "PAPAYA", "PEACH", "PEANUT", "PEAR", "PECANS", "PEPPERMINT", "PIG", "PINEAPPLE", "PISTACHIO", "PLUM", "PORK", "POTATO", "RAISIN GRAPE", "RASPBERRIES", "RAW SUGAR", "RETAIL COFFEE", "RICE", "SNAP PEA", "SOYBEAN", "SOYBEAN OIL", "SPEARMINT", "SPINACH", "STRAWBERRIES", "SUNFLOWER OIL", "SWEET CHERRIES", "SWEET CORN", "SWEET POTATO", "TABLE GRAPE", "TOBACCO", "TOMATO", "TURKEY", "WALNUT", "WATERMELON", "WHEAT", "WHEAT FLOUR", "WHOLESALE COFFEE"];
+	let dataArr = ["BLACK AND WHITE PEPPER", "BLACKSTRAP MOLASSES", "GARLIC (California)", "CHOCOLATE LIQUOR", "WHOLESALE COFFEE", "BROILER CHICKEN", "HAWAIIAN COFFEE", "BRUSSEL SPROUT", "SWEET CHERRIES", "MACADAMIA NUT", "RETAIL COFFEE", "SUNFLOWER OIL", "SUNFLOWER OIL", "COCOA BUTTER", "RAISIN GRAPE", "STRAWBERRIES", "SWEET POTATO", "BELL PEPPER", "BLUEBERRIES", "CAULIFLOWER", "COCONUT OIL", "CRANBERRIES", "RASPBERRIES", "SOYBEAN OIL", "TABLE GRAPE", "WHEAT FLOUR", "CANTALOUPE", "COCOA BEAN", "GRAPEFRUIT", "PEPPERMINT", "SWEET CORN", "WATERMELON", "ARTICHOKE", "ASPARAGUS", "DRY BEANS", "LIMA BEAN", "NECTARINE", "OLIVE OIL", "PINEAPPLE", "PISTACHIO", "RAW SUGAR", "SPEARMINT", "BROCCOLI", "CORN OIL", "CUCUMBER", "EGGPLANT", "FLAXSEED", "HAZELNUT", "HONEYDEW", "PALM OIL", "SNAP PEA", "APRICOT", "AVOCADO", "CABBAGE", "LETTUCE", "SOYBEAN", "SPINACH", "TOBACCO", "ALMOND", "BANANA", "BARLEY", "BUTTER", "CARROT", "CELERY", "CHEESE", "ORANGE", "PAPAYA", "PEANUT", "PECANS", "POTATO", "TOMATO", "TURKEY", "WALNUT", "APPLE", "HONEY", "OLIVE", "ONION", "PEACH", "WHEAT", "BEEF", "CORN", "FISH", "HOPS", "KIWI", "LAMB", "LARD", "MILK", "PEAR", "PLUM", "PORK", "RICE", "EGG", "FIG", "OAT", "PIG"];
 	let matchedArr = [];
 	for (n in allNodes) {
 		let tempText = allNodes[n].textContent;
 		/* compare current page's textmatch to all available server keywords */
 		for (let i=0; i<dataArr.length; i++) {
-			if (tempText.indexOf(dataArr[i].toLowerCase()) > -1) {
+			if (tempText.toLowerCase().indexOf(dataArr[i].toLowerCase()) > -1) {
 				if (matchedArr.indexOf(dataArr[i]) == -1) {
 					matchedArr.push(dataArr[i]);
 				}
 			}
 		}
 	};
+	matchedArr.sort(function(a, b){
+	  // ASC  -> a.length - b.length
+	  // DESC -> b.length - a.length
+	  return b.length - a.length;
+	});
 	console.log('matched arr', matchedArr);
 	for (mf in matchedArr) {
 		responsesJson.lekeys.push(matchedArr[mf]);
@@ -129,14 +134,15 @@ const checkForMatches = function(allNodes) {
 			/* compare current page's textmatch to all available server keywords */
 			for (let i=0; i<matchedArr.length; i++) {
 				/* if a server keyword is found in a page element text */
-				if (tempText.indexOf(matchedArr[i].toLowerCase()) > -1) {
+				if (tempText.toLowerCase().indexOf(matchedArr[i].toLowerCase()) > -1) {
 					console.log('checking against '+matchedArr[i]);
-					let indexStart = tempText.indexOf(matchedArr[i].toLowerCase() );
-					let indexEnd = tempText.indexOf(matchedArr[i].toLowerCase() ) + matchedArr[i].length;
+					let indexStart = tempText.toLowerCase().indexOf(matchedArr[i].toLowerCase() );
+					let indexEnd = tempText.toLowerCase().indexOf(matchedArr[i].toLowerCase() ) + matchedArr[i].length;
 					let tempHead = '';
 					if (indexStart > 0) {
 						tempHead = tempText.slice(0, indexStart-1);
 					}
+					let needSpace = tempText.slice(indexEnd, indexEnd + 1) === ' ';
 					let matchedFood = responsesJson[matchedArr[i]];
 					console.log('matchedfood: ', matchedFood);
 					try{
@@ -146,7 +152,7 @@ const checkForMatches = function(allNodes) {
 						+"<div class='food-match-title'>" + matchedArr[i].toLowerCase() + " facts!</div>"
 						+"<div>Grams CO2 per Cal: " + matchedFood['GramsCO2ePerCal'] + "</div>"
 						+"<div>Grams CO2 per Serving: " + matchedFood['GramsCO2ePerServing'] + "</div>"
-						+"</div></span>" + tempText.slice(indexEnd);
+						+"</div></span>" + (needSpace ? '&nbsp;' : '') + tempText.slice(indexEnd);
 					}
 					catch(error){
 						break;
